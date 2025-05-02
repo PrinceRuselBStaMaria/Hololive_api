@@ -1,10 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".register">
+    android:background="#FFFFFF"
+    android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Name Label and Field -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textStyle="bold"
+            android:padding="3dp"
+            android:textSize="15sp"
+            android:layout_marginTop="1dp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/fname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your name"
+            android:background="@drawable/edittext_background"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:textColor="@color/black"/>
+
+        <!-- Username Label and Field -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="15sp"
+            android:padding="3dp"
+            android:textStyle="bold"
+            android:layout_marginTop="1dp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/reguser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your username"
+            android:background="@drawable/edittext_background"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:textColor="@color/black"/>
+
+        <!-- Birthday Select Date -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Birthday"
+            android:textSize="15sp"
+            android:padding="3dp"
+            android:textStyle="bold"
+            android:layout_marginTop="1dp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/bday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Select your birthday"
+            android:background="@drawable/edittext_background"
+            android:focusable="false"
+            android:clickable="true"
+            android:padding="12dp"
+            android:textColor="@color/black"/>
+
+        <!-- Email Label and Field -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email Address"
+            android:padding="3dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="name@email.com"
+            android:background="@drawable/edittext_background"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:textColor="@color/black"/>
+
+        <!-- Password Label and Field -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:padding="3dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="#000000"/>
+
+        <EditText
+            android:id="@+id/regpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_background"
+            android:hint="Create a password"
+            android:inputType="textPassword"
+            android:padding="13dp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/conpass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm your password"
+            android:background="@drawable/edittext_background"
+            android:inputType="textPassword"
+            android:layout_marginTop="16dp"
+            android:padding="13dp"
+            android:textColor="@color/black"/>
+
+        <!-- Profile Pic (Optional) Section -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile Picture"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:layout_marginTop="16dp" />
+
+        <ImageView
+            android:id="@+id/capturedImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="Captured Image"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"/>
+
+        <!-- Profile Picture Upload Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/openCameraButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Open Camera"
+                android:backgroundTint="#666666"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/file"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Pick from File"
+                android:backgroundTint="#666666"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- Terms and Conditions Checkbox -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <CheckBox
+                android:id="@+id/termsCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:padding="3dp" />
+
+            <TextView
+                android:id="@+id/termsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I agree to the Terms and Conditions and Privacy Policy."
+                android:textSize="14sp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#000000"/>
+
+        </LinearLayout>
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/regbutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:backgroundTint="#006FFD"
+            android:layout_marginTop="1dp"/>
+
+    </LinearLayout>
+</ScrollView>

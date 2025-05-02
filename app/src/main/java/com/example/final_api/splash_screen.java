@@ -28,7 +28,7 @@ public class splash_screen extends AppCompatActivity {
         
         // Navigate to MainActivity after delay
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(splash_screen.this, MainActivity.class);
+            Intent intent = new Intent(splash_screen.this, Login.class);
             startActivity(intent);
             finish(); // Close splash screen so it's not shown when back button is pressed
         }, SPLASH_DURATION);
