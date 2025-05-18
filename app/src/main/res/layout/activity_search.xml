@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="#18CDCA"
     tools:context=".SearchActivity">
 
     <TextView
@@ -14,33 +15,49 @@
         android:text="Search Hololive Members"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#FF6D26"
+        android:textColor="#FFFFFF"
         android:gravity="center"
         android:layout_marginBottom="16dp"/>
 
-    <LinearLayout
+
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        app:cardCornerRadius="24dp"
+        app:cardElevation="2dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="#FFFFFF">
 
-        <EditText
-            android:id="@+id/edit_search"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Enter name or generation"
-            android:inputType="text"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
 
-        <Button
-            android:id="@+id/btn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            android:backgroundTint="#FF6D26"
-            android:layout_marginStart="8dp" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/edit_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Enter name or generation"
+                android:inputType="text"
+                android:background="@null"
+                android:padding="8dp"
+                android:textColor="@color/black" />
+
+            <ImageButton
+                android:id="@+id/btn_search"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@android:drawable/ic_menu_search"
+                android:contentDescription="Search"
+                android:background="@drawable/circular_button"
+                app:tint="#FFFFFF"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -50,13 +67,17 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_results"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            android:scrollbars="none" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:indeterminateTint="#FF6D26" />
     </FrameLayout>
 </LinearLayout>
