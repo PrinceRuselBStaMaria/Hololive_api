@@ -95,7 +95,11 @@ public class Login extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(Login.this, "Successfully login", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Login.this, welcome_screen.class));
+                    Intent intent = new Intent(Login.this, MainActivity.class);
+                    // Clear previous activities so user can't go back to login screen with back button
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    //finish(); // Close the login activity
                 } else {
                     Toast.makeText(Login.this, "login Failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }

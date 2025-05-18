@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.final_api"
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-feature
@@ -9,6 +10,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -44,10 +46,16 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
         </activity>
+        <activity android:name=".SearchActivity"
+            android:exported="false" />
+        <activity android:name=".FavoritesActivity"
+            android:exported="false" />
+        <activity android:name=".LiveStreamsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VTuberDetailActivity"
+            android:exported="false"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.final_api.fileprovider"
