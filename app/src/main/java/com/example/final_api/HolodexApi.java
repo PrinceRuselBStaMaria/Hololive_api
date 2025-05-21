@@ -1,6 +1,6 @@
-// filepath: d:\Projects\Hololive_api\app\src\main\java\com\example\final_api\api\HolodexApi.java
 package com.example.final_api.api;
 
+import com.example.final_api.model.LiveStream;
 import com.example.final_api.model.VTuber;
 import com.example.final_api.model.Video;
 
@@ -53,9 +53,14 @@ public interface HolodexApi {
     
     // Get live status
     @GET("live")
-    Call<List<Video>> getLiveStreams(
+    Call<List<Video>> getLiveStreamsByChannel(
         @Query("channel_id") String channelId
     );
+    
+    // Get all live streams for an organization
+    @GET("live")
+    Call<List<LiveStream>> getLiveStreamsByOrg(
+        );
     
     // Get clips featuring the VTuber
     @GET("clips")
