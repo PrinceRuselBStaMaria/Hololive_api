@@ -54,30 +54,40 @@
             app:cardElevation="0dp"
             android:layout_marginBottom="16dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="12dp">
+                android:gravity="center_vertical">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@android:drawable/ic_menu_search"
-                    android:layout_marginEnd="8dp"
-                    app:tint="#757575" />
 
                 <Button
                     android:id="@+id/btn_search"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Where do you want to go?"
+                    android:layout_marginStart="24dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:gravity="start|center_vertical"
+                    android:text="Discover a Member?"
                     android:textColor="#757575"
                     android:textSize="16sp"
-                    android:backgroundTint="#FFFFFF"
-                    android:gravity="start|center_vertical" />
-            </LinearLayout>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="55dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="16dp"
+
+                    android:src="@android:drawable/ic_menu_search"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#757575" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -169,6 +179,63 @@
                             android:textColor="#000000" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            
+            <!-- Live Streams Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Live Now"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white" />
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🔴"
+                        android:textSize="16sp"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+                
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+                    
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_live_streams"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                        
+                    <ProgressBar
+                        android:id="@+id/progress_live_streams"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="gone" />
+                        
+                    <TextView
+                        android:id="@+id/tv_no_live_streams"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="No live streams at the moment"
+                        android:textColor="@android:color/white"
+                        android:visibility="gone" />
+                </FrameLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

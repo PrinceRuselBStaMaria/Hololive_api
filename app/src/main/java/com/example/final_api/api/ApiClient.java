@@ -13,8 +13,17 @@ public class ApiClient {
 
     public static Retrofit getClient() {
         if (retrofit == null) {
-            // Create logging interceptor
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            // Create a custom logging interceptor to ensure we get complete responses
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+                @Override
+                public void log(String message) {
+                    if (message.startsWith("{") || message.startsWith("[")) {
+                        android.util.Log.d("HolodexAPI", "Response JSON: " + message);
+                    } else {
+                        android.util.Log.d("HolodexAPI", message);
+                    }
+                }
+            });
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             // Create OkHttp client with auth header

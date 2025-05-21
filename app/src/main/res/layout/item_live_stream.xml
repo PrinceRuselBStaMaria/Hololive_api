@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Thumbnail with live badge -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <ImageView
+                android:id="@+id/img_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="Stream thumbnail" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LIVE"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:layout_margin="8dp"
+                android:background="#F44336"
+                android:layout_gravity="start|top" />
+        </FrameLayout>
+
+        <!-- Stream info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/img_channel"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Channel avatar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp">
+
+                    <TextView
+                        android:id="@+id/tv_channel_name"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="#757575" />
+
+                    <TextView
+                        android:id="@+id/tv_viewer_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="#E91E63"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

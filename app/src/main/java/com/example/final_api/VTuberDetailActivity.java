@@ -468,7 +468,7 @@ public class VTuberDetailActivity extends AppCompatActivity {
         recyclerLive.setVisibility(View.GONE);
         tvLiveStatus.setVisibility(View.GONE);
         
-        apiService.getLiveStreams(channelId)
+        apiService.getLiveStreamsByChannel(channelId)
                 .enqueue(new Callback<List<Video>>() {
                     @Override
                     public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
