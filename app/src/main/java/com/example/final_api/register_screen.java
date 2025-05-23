@@ -202,7 +202,9 @@ public class register_screen extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(register_screen.this, "Successfully Regestration", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(register_screen.this, welcome_screen.class));
+                    // Changed to navigate to the main activity instead of welcome screen
+                    startActivity(new Intent(register_screen.this, MainActivity.class));
+                    finish(); // Close registration activity
                 } else {
                     Toast.makeText(register_screen.this, "registration Failed"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }

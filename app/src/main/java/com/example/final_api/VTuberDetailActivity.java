@@ -128,13 +128,15 @@ public class VTuberDetailActivity extends AppCompatActivity {    public static f
             boolean isFavorite = !v.isSelected();
             v.setSelected(isFavorite);
             
-            // Show a message indicating the VTuber has been added to favorites
+            // If adding to favorites, save to Firebase
             if (isFavorite) {
-                android.widget.Toast.makeText(this, vtuber.getName() + " added to favorites!", 
-                    android.widget.Toast.LENGTH_SHORT).show();
+                // Show a message indicating the VTuber has been added to favorites
+                FavoritesActivity.addVTuberToFavorites(this, vtuber);
             } else {
+                // Show a message indicating the VTuber has been removed from favorites
                 android.widget.Toast.makeText(this, vtuber.getName() + " removed from favorites!", 
                     android.widget.Toast.LENGTH_SHORT).show();
+                // Note: for a complete implementation, we would need to remove from Firebase here
             }
         });
         
