@@ -3,6 +3,7 @@ package com.example.final_api.model;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Arrays;
 
 public class VTuber implements Serializable {
     @SerializedName("id")
@@ -14,7 +15,7 @@ public class VTuber implements Serializable {
     @SerializedName("english_name")
     private String englishName;
     
-    @SerializedName("channel_id")
+    // We're using the id field for channel_id because that's what the API returns
     private String channelId;
     
     @SerializedName("org")
@@ -41,15 +42,23 @@ public class VTuber implements Serializable {
     @SerializedName("video_count")
     private long videoCount;
     
-    @SerializedName("debut")
+    // The API uses published_at as the debut date
+    @SerializedName("published_at")
     private String debutDate;
     
-    @SerializedName("languages")
+    // The API uses lang (single language) but we convert it to a list in getter
+    @SerializedName("lang")
+    private String language;
+    
     private List<String> languages;
 
     // Getters and setters
     public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public void setId(String id) { 
+        this.id = id;
+        // Also set channelId to match id since that's what we expect in the UI
+        this.channelId = id;
+    }
     
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -57,7 +66,13 @@ public class VTuber implements Serializable {
     public String getEnglishName() { return englishName; }
     public void setEnglishName(String englishName) { this.englishName = englishName; }
     
-    public String getChannelId() { return channelId; }
+    public String getChannelId() { 
+        // If channelId is null but id exists, use id
+        if (channelId == null && id != null) {
+            return id;
+        }
+        return channelId; 
+    }
     public void setChannelId(String channelId) { this.channelId = channelId; }
     
     public String getOrg() { return org; }
@@ -78,7 +93,17 @@ public class VTuber implements Serializable {
     public String getTwitterLink() { return twitterLink; }
     public void setTwitterLink(String twitterLink) { this.twitterLink = twitterLink; }
     
-    public long getSubscriberCount() { return subscriberCount; }
+    public long getSubscriberCount() { 
+        // Handle string subscriber count from API
+        if (subscriberCount == 0 && language != null) {
+            try {
+                return Long.parseLong(language);
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        }
+        return subscriberCount; 
+    }
     public void setSubscriberCount(long subscriberCount) { this.subscriberCount = subscriberCount; }
     
     public long getVideoCount() { return videoCount; }
@@ -87,6 +112,15 @@ public class VTuber implements Serializable {
     public String getDebutDate() { return debutDate; }
     public void setDebutDate(String debutDate) { this.debutDate = debutDate; }
     
-    public List<String> getLanguages() { return languages; }
+    public List<String> getLanguages() { 
+        // If languages list is null but we have a language string, convert it to a list
+        if (languages == null && language != null && !language.isEmpty()) {
+            languages = Arrays.asList(language);
+        }
+        return languages; 
+    }
     public void setLanguages(List<String> languages) { this.languages = languages; }
+    
+    public String getLanguage() { return language; }
+    public void setLanguage(String language) { this.language = language; }
 }

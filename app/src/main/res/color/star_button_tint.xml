@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#FF0000" android:state_pressed="true" /> <!-- Red when pressed -->
+    <item android:color="#FF0000" android:state_selected="true" /> <!-- Red when selected -->
+    <item android:color="#FFFFFF" /> <!-- White otherwise -->
+</selector>

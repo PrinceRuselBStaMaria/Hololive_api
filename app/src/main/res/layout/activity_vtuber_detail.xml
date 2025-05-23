@@ -37,17 +37,30 @@
                 android:src="@android:drawable/ic_menu_close_clear_cancel"
                 android:tint="@android:color/white" />
 
-            <TextView
-                android:id="@+id/tv_name_large"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="16dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_gravity="bottom"
                 android:layout_marginBottom="16dp"
-                android:textColor="@android:color/white"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                tools:text="Gawr Gura" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_name_large"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="16dp" android:textColor="@android:color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    tools:text="Gawr Gura" />                <ImageButton
+                    android:id="@+id/btn_favorite"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="16dp"                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/btn_star"
+                    android:tint="@color/star_button_tint"
+                    android:contentDescription="Add to favorites" />
+            </LinearLayout>
 
         </FrameLayout>
 
@@ -245,13 +258,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
-                
+
                 <ProgressBar
                     android:id="@+id/progress_live"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
-                    
+
                 <TextView
                     android:id="@+id/tv_live_status"
                     android:layout_width="match_parent"
@@ -261,7 +274,7 @@
                     android:visibility="gone"
                     tools:text="Currently offline"
                     tools:visibility="visible" />
-                    
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_live"
                     android:layout_width="match_parent"
@@ -293,13 +306,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
-                
+
                 <ProgressBar
                     android:id="@+id/progress_upcoming"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
-                    
+
                 <TextView
                     android:id="@+id/tv_no_upcoming"
                     android:layout_width="match_parent"
@@ -308,7 +321,7 @@
                     android:text="No upcoming streams found"
                     android:textSize="16sp"
                     android:visibility="gone" />
-                    
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_upcoming"
                     android:layout_width="match_parent"
@@ -343,13 +356,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
-                
+
                 <ProgressBar
                     android:id="@+id/progress_videos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
-                    
+
                 <TextView
                     android:id="@+id/tv_no_videos"
                     android:layout_width="match_parent"
@@ -358,7 +371,7 @@
                     android:text="No recent videos found"
                     android:textSize="16sp"
                     android:visibility="gone" />
-                    
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_videos"
                     android:layout_width="match_parent"
@@ -393,13 +406,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
-                
+
                 <ProgressBar
                     android:id="@+id/progress_clips"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
-                    
+
                 <TextView
                     android:id="@+id/tv_no_clips"
                     android:layout_width="match_parent"
@@ -408,7 +421,7 @@
                     android:text="No clips found"
                     android:textSize="16sp"
                     android:visibility="gone" />
-                    
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_clips"
                     android:layout_width="match_parent"
@@ -444,13 +457,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp">
-                
+
                 <ProgressBar
                     android:id="@+id/progress_collabs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center" />
-                    
+
                 <TextView
                     android:id="@+id/tv_no_collabs"
                     android:layout_width="match_parent"
@@ -459,17 +472,21 @@
                     android:text="No collaborations found"
                     android:textSize="16sp"
                     android:visibility="gone" />
-                    
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_collabs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
                     android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:visibility="gone"
+                    android:paddingEnd="16dp" android:visibility="gone"
                     tools:visibility="visible" />
             </FrameLayout>
+
+            <!-- Extra padding at the bottom -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
