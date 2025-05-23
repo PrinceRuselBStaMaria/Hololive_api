@@ -10,11 +10,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.final_api.adapter.LiveStreamAdapter;
+import com.example.final_api.api.HolodexApi;
+
 public class LiveStreamsActivity extends AppCompatActivity {
 
     private RecyclerView liveStreamsRecyclerView;
     private ProgressBar loadingProgressBar;
     private TextView emptyStateTextView;
+    private LiveStreamAdapter liveStreamAdapter;
+    private HolodexApi apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +33,12 @@ public class LiveStreamsActivity extends AppCompatActivity {
 
         // Set up RecyclerView
         liveStreamsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        
+        liveStreamAdapter = new LiveStreamAdapter(this);
+        liveStreamsRecyclerView.setAdapter(liveStreamAdapter);
+
+        // Initialize API service
+        apiService = com.example.final_api.api.ApiClient.getClient().create(com.example.final_api.api.HolodexApi.class);
+
         // Load live streams
         fetchLiveStreams();
     }
@@ -38,16 +48,38 @@ public class LiveStreamsActivity extends AppCompatActivity {
         loadingProgressBar.setVisibility(View.VISIBLE);
         liveStreamsRecyclerView.setVisibility(View.GONE);
         emptyStateTextView.setVisibility(View.GONE);
-        
-        // TODO: Implement Holodex API call to fetch live streams
-        // This would involve:
-        // 1. Making a network request to the Holodex API endpoint for live streams
-        // 2. Parsing the response into LiveStream objects
-        // 3. Setting up a RecyclerView adapter to display the streams
-        
-        // For now, just show a message
-        Toast.makeText(this, "Fetching live streams (API integration pending)", Toast.LENGTH_SHORT).show();
-        loadingProgressBar.setVisibility(View.GONE);
-        emptyStateTextView.setVisibility(View.VISIBLE);
+
+        // Fetch all currently live streams and filter for Hololive
+        apiService.getAllLiveStreams().enqueue(new retrofit2.Callback<java.util.List<com.example.final_api.model.LiveStream>>() {
+            @Override
+            public void onResponse(retrofit2.Call<java.util.List<com.example.final_api.model.LiveStream>> call, retrofit2.Response<java.util.List<com.example.final_api.model.LiveStream>> response) {
+                loadingProgressBar.setVisibility(View.GONE);
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    java.util.List<com.example.final_api.model.LiveStream> hololiveStreams = new java.util.ArrayList<>();
+                    for (com.example.final_api.model.LiveStream stream : response.body()) {
+                        if (stream.getChannel() != null &&
+                            ("Hololive".equalsIgnoreCase(stream.getChannel().getOrg()) ||
+                             "hololive".equalsIgnoreCase(stream.getChannel().getOrg()))) {
+                            hololiveStreams.add(stream);
+                        }
+                    }
+                    if (!hololiveStreams.isEmpty()) {
+                        liveStreamAdapter.updateData(hololiveStreams);
+                        liveStreamsRecyclerView.setVisibility(View.VISIBLE);
+                    } else {
+                        emptyStateTextView.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    emptyStateTextView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<java.util.List<com.example.final_api.model.LiveStream>> call, Throwable t) {
+                loadingProgressBar.setVisibility(View.GONE);
+                emptyStateTextView.setVisibility(View.VISIBLE);
+                android.widget.Toast.makeText(LiveStreamsActivity.this, "Error loading live streams: " + t.getMessage(), android.widget.Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

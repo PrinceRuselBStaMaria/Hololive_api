@@ -76,4 +76,21 @@ public interface HolodexApi {
         @Query("include") String include,
         @Query("limit") int limit
     );
+    
+    // Get all live and upcoming streams for Hololive
+    @GET("videos")
+    Call<List<LiveStream>> getLiveAndUpcomingStreams(
+        @Query("org") String org,
+        @Query("status") String status,
+        @Query("type") String type,
+        @Query("sort") String sort,
+        @Query("order") String order,
+        @Query("max_upcoming_hours") int maxUpcomingHours,
+        @Query("limit") int limit,
+        @Query("include") String include
+    );
+    
+    // Get all currently live streams (all orgs, including Hololive)
+    @GET("live")
+    Call<List<LiveStream>> getAllLiveStreams();
 }
