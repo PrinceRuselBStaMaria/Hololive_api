@@ -10,6 +10,7 @@
         android:id="@+id/recycler_favorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
         android:padding="8dp" />
 
     <TextView
@@ -27,23 +28,73 @@
         android:id="@+id/test_add_favorite_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="16dp"
         android:layout_gravity="top"
         android:background="#EEEEEE">
 
-        <EditText
-            android:id="@+id/editTextFavoriteName"
-            android:layout_width="0dp"
+        <!-- Connection Status -->
+        <TextView
+            android:id="@+id/tvConnectionStatus"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Enter favorite name" />
+            android:text="Firebase Connection: Unknown"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:textSize="14sp" />
 
-        <Button
-            android:id="@+id/btnAddFavorite"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Favorite" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextFavoriteName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Enter favorite name" />
+
+            <Button
+                android:id="@+id/btnAddFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Favorite" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/btnRetryConnection"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Retry Connection"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="#FF5722"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnDebugFirebase"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Debug Firebase"
+                android:layout_marginStart="4dp"
+                android:backgroundTint="#FFA000" />
+        </LinearLayout>
+        
+        <Button
+            android:id="@+id/btnForceWrite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Force Write to Firebase"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#E91E63" />
     </LinearLayout>
 
 </FrameLayout>
