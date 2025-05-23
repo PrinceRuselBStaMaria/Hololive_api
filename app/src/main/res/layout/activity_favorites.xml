@@ -23,4 +23,27 @@
         android:padding="32dp"
         android:visibility="gone" />
 
+    <LinearLayout
+        android:id="@+id/test_add_favorite_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_gravity="top"
+        android:background="#EEEEEE">
+
+        <EditText
+            android:id="@+id/editTextFavoriteName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Enter favorite name" />
+
+        <Button
+            android:id="@+id/btnAddFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Favorite" />
+    </LinearLayout>
+
 </FrameLayout>
