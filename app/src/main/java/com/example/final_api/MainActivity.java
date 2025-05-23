@@ -108,81 +108,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchLiveStreams() {
-        // Show loading state
         progressBarLive.setVisibility(View.VISIBLE);
         liveStreamsRecyclerView.setVisibility(View.GONE);
         tvNoLiveStreams.setVisibility(View.GONE);
-        
-        // Call the API to get live streams
-        apiService.getLiveStreamsByOrg()
-                .enqueue(new Callback<List<LiveStream>>() {
-                    @Override
-                    public void onResponse(Call<List<LiveStream>> call, Response<List<LiveStream>> response) {
-                        progressBarLive.setVisibility(View.GONE);
-                        
-                        // Log detailed response information
-                        Log.d("MainActivity", "API Response Code: " + response.code());
-                        Log.d("MainActivity", "API Response Message: " + response.message());
-                        Log.d("MainActivity", "API Request URL: " + call.request().url());
-                        
-                        if (response.isSuccessful()) {
-                            Log.d("MainActivity", "API Response is successful");
-                            if (response.body() != null) {
-                                List<LiveStream> liveStreams = response.body();
-                                Log.d("MainActivity", "API Response Body size: " + liveStreams.size());
-                                
-                                if (!liveStreams.isEmpty()) {
-                                    // Debug first stream to verify data
-                                    LiveStream firstStream = liveStreams.get(0);
-                                    Log.d("MainActivity", "First stream title: " + firstStream.getTitle());
-                                    Log.d("MainActivity", "First stream ID: " + firstStream.getId());
-                                    Log.d("MainActivity", "First stream thumbnail: " + firstStream.getThumbnail());
-                                    
-                                    if (firstStream.getChannel() != null) {
-                                        Log.d("MainActivity", "First stream channel name: " + 
-                                                firstStream.getChannel().getDisplayName());
-                                    } else {
-                                        Log.d("MainActivity", "First stream channel is null");
-                                    }
-                                    
-                                    // Update UI with live streams
-                                    liveStreamAdapter.updateData(liveStreams);
-                                    liveStreamsRecyclerView.setVisibility(View.VISIBLE);
-                                    Log.d("MainActivity", "Loaded " + liveStreams.size() + " live streams");
-                                } else {
-                                    Log.d("MainActivity", "API response body is empty list");
-                                    tvNoLiveStreams.setVisibility(View.VISIBLE);
-                                }
-                            } else {
-                                Log.d("MainActivity", "API response body is null");
-                                tvNoLiveStreams.setVisibility(View.VISIBLE);
-                            }
-                        } else {
-                            // Show no streams message
-                            tvNoLiveStreams.setVisibility(View.VISIBLE);
-                            Log.d("MainActivity", "No live streams found - unsuccessful response");
+
+        // Use the /live endpoint to get all currently live streams, but filter for Hololive org only
+        apiService.getAllLiveStreams().enqueue(new Callback<List<LiveStream>>() {
+            @Override
+            public void onResponse(Call<List<LiveStream>> call, Response<List<LiveStream>> response) {
+                progressBarLive.setVisibility(View.GONE);
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    // Filter for Hololive org only
+                    List<LiveStream> hololiveStreams = new java.util.ArrayList<>();
+                    for (LiveStream stream : response.body()) {
+                        if (stream.getChannel() != null &&
+                            ("Hololive".equalsIgnoreCase(stream.getChannel().getOrg()) ||
+                             "hololive".equalsIgnoreCase(stream.getChannel().getOrg()))) {
+                            hololiveStreams.add(stream);
                         }
                     }
-                    
-                    @Override
-                    public void onFailure(Call<List<LiveStream>> call, Throwable t) {
-                        // Handle error
-                        progressBarLive.setVisibility(View.GONE);
+                    if (!hololiveStreams.isEmpty()) {
+                        liveStreamAdapter.updateData(hololiveStreams);
+                        liveStreamsRecyclerView.setVisibility(View.VISIBLE);
+                    } else {
                         tvNoLiveStreams.setVisibility(View.VISIBLE);
-                        
-                        Log.e("MainActivity", "Error fetching live streams", t);
-                        Log.e("MainActivity", "Request URL that failed: " + call.request().url());
-                        Log.e("MainActivity", "Error message: " + t.getMessage());
-                        
-                        if (t.getCause() != null) {
-                            Log.e("MainActivity", "Error cause: " + t.getCause().getMessage());
-                        }
-                        
-                        Toast.makeText(MainActivity.this, 
-                                "Error loading live streams: " + t.getMessage(), 
-                                Toast.LENGTH_SHORT).show();
                     }
-                });
+                } else {
+                    tvNoLiveStreams.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<LiveStream>> call, Throwable t) {
+                progressBarLive.setVisibility(View.GONE);
+                tvNoLiveStreams.setVisibility(View.VISIBLE);
+                Toast.makeText(MainActivity.this, "Error loading live streams: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     
     /**
